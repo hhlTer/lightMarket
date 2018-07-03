@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Producer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 </head>
 <body>
-    <h1>Test</h1>
+<!--//Menu bar-->
+<div th:replace="fragments/menu.html :: top_menu"/>
+    <!--<div th:each="producer : ${producers}" class="w3-container">-->
+        <div class="w3-container w3-grey w3-margin">
+            <div class="w3-container">
+                <div class="w3-container w3-section w3-light-grey w3-margin">
+                    <ul class="w3-ul">
+                        <li>Id</li>
+                        <!--<li th:if="${producer == null}">Producer name</li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <!--</div>-->
+
 </body>
 </html>
