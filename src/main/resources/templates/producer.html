@@ -10,18 +10,20 @@
 <body>
 <!--//Menu bar-->
 <div th:replace="fragments/menu.html :: top_menu"/>
-    <!--<div th:each="producer : ${producers}" class="w3-container">-->
+
+    <div th:each="producer : ${producers}" class="w3-container">
         <div class="w3-container w3-grey w3-margin">
             <div class="w3-container">
                 <div class="w3-container w3-section w3-light-grey w3-margin">
                     <ul class="w3-ul">
-                        <li>Id</li>
-                        <!--<li th:if="${producer == null}">Producer name</li>-->
+                        <li th:if="${producer != null}" th:text="'Id: ' + ${producer.getId()}">Id</li>
+                            <li th:if="${producer != null}" th:text="'Producer: ' + ${producer.getProducerName()}">Producer name</li>
                     </ul>
                 </div>
+                            <a th:href="@{/product(producerId = ${producer.getId()})}" class="w3-button w3-blue w3-margin-bottom">Search</a>
             </div>
         </div>
-    <!--</div>-->
+    </div>
 
 </body>
 </html>

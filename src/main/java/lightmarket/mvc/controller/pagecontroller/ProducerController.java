@@ -19,8 +19,8 @@ public class ProducerController {
     public ModelAndView produce(){
         ModelAndView modelAndView = new ModelAndView("producer");
 
-//        List<Producer> producerList = producerService.getAll();
-//        modelAndView.addObject("producers", producerList);
+        List<Producer> producerList = producerService.getAll();
+        modelAndView.addObject("producers", producerList);
 
         return modelAndView;
     }

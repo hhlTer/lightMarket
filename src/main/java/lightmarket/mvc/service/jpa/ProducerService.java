@@ -47,6 +47,10 @@ public class ProducerService {
         }
     }
 
+    public boolean exist(long producerId) {
+        return producerRepository.existsById(producerId);
+    }
+
     /**
      * Additional
      */

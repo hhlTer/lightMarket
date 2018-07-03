@@ -1,5 +1,6 @@
 package lightmarket.mvc.service.jpa;
 
+import lightmarket.mvc.model.domain.Producer;
 import lightmarket.mvc.model.domain.Product;
 import lightmarket.mvc.model.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,13 @@ public class ProductService {
     /**
      * Additional
      */
+
+    /**
+     * @param producer
+     * @return List of products of own producer
+     */
+
+    public List<Product> getProductListByProducer(Producer producer) {
+        return productRepository.findAllByProducerId(producer.getId());
+    }
 }

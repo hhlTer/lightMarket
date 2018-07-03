@@ -8,7 +8,22 @@
 
 </head>
 <body>
-    Menu bar
+    <!--Menu bar-->
     <div th:replace="fragments/menu.html :: top_menu"/>
+
+    <div th:each="product : ${productList}" class="w3-container">
+        <div class="w3-container w3-grey w3-margin">
+            <div class="w3-container">
+                <div class="w3-container w3-section w3-light-grey w3-margin">
+                    <ul class="w3-ul">
+                        <li th:if="${product != null}" th:text="'Id: ' + ${product.getId()}">Id</li>
+                        <li th:if="${product != null}" th:text="'Product: ' + ${product.getProductName()}">Product</li>
+                        <!--&lt;!&ndash;<li th:if="${product != null}" th:text="'Producer: ' + ${product.getProductName()}">Product</li>&ndash;&gt;-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
