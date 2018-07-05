@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 </head>
+
 <body>
 <!--//Menu bar-->
 <div th:replace="fragments/menu.html :: top_menu"/>
@@ -17,10 +18,10 @@
                 <div class="w3-container w3-section w3-light-grey w3-margin">
                     <ul class="w3-ul">
                         <li th:if="${producer != null}" th:text="'Id: ' + ${producer.getId()}">Id</li>
-                            <li th:if="${producer != null}" th:text="'Producer: ' + ${producer.getProducerName()}">Producer name</li>
+                        <li th:if="${producer != null}" th:text="'Producer: ' + ${producer.getProducerName()}">Producer name</li>
                     </ul>
                 </div>
-                            <a th:href="@{/product(producerId = ${producer.getId()})}" class="w3-button w3-blue w3-margin-bottom">Search</a>
+                <a th:href="@{/product(producerId = ${producer.getId()})}" class="w3-button w3-blue w3-margin-bottom">Search</a>
             </div>
         </div>
     </div>

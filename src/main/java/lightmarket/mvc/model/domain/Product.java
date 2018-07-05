@@ -1,6 +1,7 @@
 package lightmarket.mvc.model.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity(name = "product")
 public class Product {
@@ -12,6 +13,9 @@ public class Product {
 
     @Column(name = "product_name")
     private String productName;
+
+    @Column(name = "price")
+    private BigDecimal price;
 
     @JoinColumn(name = "producer_id")
     @ManyToOne(fetch = FetchType.EAGER)
@@ -26,12 +30,21 @@ public class Product {
     public Producer getProducer() {
         return producer;
     }
+    public BigDecimal getPrice() {
+        return price;
+    }
 
     public void setProductName(String productName) {
         this.productName = productName;
     }
     public void setProducer(Producer producer) {
         this.producer = producer;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     @Override

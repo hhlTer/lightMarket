@@ -56,4 +56,22 @@ public class ProductService {
     public List<Product> getProductListByProducer(Producer producer) {
         return productRepository.findAllByProducerId(producer.getId());
     }
+
+    public List<Product> getProductListPageByProducerId(long producerId, int pageNumber, int count){
+        int offset = count * pageNumber;
+        if (productRepository.existsById(producerId)) {
+            return productRepository.findPageProductList(producerId, count, offset);
+        }
+        return null;
+    }
+
+    public List<Product> getAllOffset(int pageNumber, int countVisiblePage) {
+        int offset = pageNumber * countVisiblePage;
+        return null;
+//        return productRepository.findAllByOffset(countVisiblePage, offset);
+    }
+
+    public long getCountOfProducts(long producerId) {
+        return productRepository.getCountOfProductsByProducerId(producerId);
+    }
 }

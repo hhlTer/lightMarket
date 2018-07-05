@@ -13,4 +13,19 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM product WHERE producer_id = :id")
     List<Product> findAllByProducerId(@Param("id") long id);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM product WHERE producer_id = :producerId LIMIT :countList OFFSET :offset")
+    List<Product> findPageProductList(
+            @Param("producerId") long producerId,
+            @Param("countList") int countList,
+            @Param("offset") int offset);
+
+    @Query(nativeQuery = true, value = "SELECT COUNT(id) FROM product WHERE producer_id = :id")
+    long getCountOfProductsByProducerId(
+            @Param("id") long producerId);
+
+//    @Query(nativeQuery = true, value = "SELECT * FROM product LIMIT = :count OFFSET = : offset")
+//    List<Product> findAllByOffset(
+//            @Param("count") int countVisiblePage,
+//            @Param("offset") int offset);
 }

@@ -11,19 +11,42 @@
     <!--Menu bar-->
     <div th:replace="fragments/menu.html :: top_menu"/>
 
-    <div th:each="product : ${productList}" class="w3-container">
+    <!--<div th:each="product : ${productList}" class="w3-container">-->
         <div class="w3-container w3-grey w3-margin">
+            <!--<a th:href="@{/product(producerId = ${producerId}, pageNumber = ${pageNumber + 1})}">wewr</a>-->
+            <a
+               th:if="${pageNumber > 0}"
+               th:href="@{/product(producerId = ${producerId}, pageNumber = ${pageNumber - 1})}"
+               class="w3-button w3-left w3-blue w3-margin-top">
+                Previous
+            </a>
+            <a
+               th:if="${pageNumber < pagesCount}"
+               th:href="@{/product(producerId = ${producerId}, pageNumber = ${pageNumber + 1})}"
+               class = "w3-button w3-right w3-blue w3-margin-top">
+                Next
+            </a>
             <div class="w3-container">
                 <div class="w3-container w3-section w3-light-grey w3-margin">
-                    <ul class="w3-ul">
-                        <li th:if="${product != null}" th:text="'Id: ' + ${product.getId()}">Id</li>
-                        <li th:if="${product != null}" th:text="'Product: ' + ${product.getProductName()}">Product</li>
-                        <!--&lt;!&ndash;<li th:if="${product != null}" th:text="'Producer: ' + ${product.getProductName()}">Product</li>&ndash;&gt;-->
-                    </ul>
+                    <table class="w3-table w3-striped w3-bordered w3-border">
+                        <tr>
+                            <th>N</th>
+                            <th>ID</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                        </tr>
+                        <tr th:each="product : ${productList}">
+                            <td th:text="${indices.get(product.getId())}"></td>
+                            <td th:text="${product.getId()}"></td>
+                            <td th:text="${product.getProductName()}"></td>
+                            <td th:text="${product.getPrice()}"></td>
+                        </tr>
+                    </table>
                 </div>
+                <a th:href="@{/product/edit(producerId=${producerId}, product=${product})}" class="w3-button w3-right"></a>
             </div>
         </div>
-    </div>
+    <!--</div>-->
 
 </body>
 </html>
