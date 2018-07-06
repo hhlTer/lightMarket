@@ -67,8 +67,7 @@ public class ProductService {
 
     public List<Product> getAllOffset(int pageNumber, int countVisiblePage) {
         int offset = pageNumber * countVisiblePage;
-        return null;
-//        return productRepository.findAllByOffset(countVisiblePage, offset);
+        return productRepository.findAllByOffset(countVisiblePage, offset);
     }
 
     public long getCountOfProducts(long producerId) {

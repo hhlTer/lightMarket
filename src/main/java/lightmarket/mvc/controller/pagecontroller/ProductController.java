@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class ProductController {
+public class ProductController extends MainController{
 
-    private final static int COUNT_VISIBLE_PAGE = 50;
+    private final static int COUNT_VISIBLE_PAGE = 10;
 
     @Autowired
     private ProductService productService;
@@ -32,7 +32,7 @@ public class ProductController {
             @RequestParam(required = false, defaultValue = "-1") long producerId,
             @RequestParam(required = false, defaultValue = "0") String pageNumber
     ){
-        ModelAndView modelAndView = new ModelAndView("products");
+        ModelAndView modelAndView = securityModelGenerate("products");
 
         int pageNumberInt = Integer.parseInt(pageNumber);
         List<Product> productList = getProducts(producerId, pageNumberInt);
@@ -58,8 +58,8 @@ public class ProductController {
     }
 
     private List<Product> getProducts(long producerId, int pageNumber){
-        List<Product> result = new ArrayList<>();
-        Producer producer = producerService.getProducerById(producerId);
+//        List<Product> result = new ArrayList<>();
+//        Producer producer = producerService.getProducerById(producerId);
 
         if (producerId >= 0 && producerService.exist(producerId)){
             return productService.getProductListPageByProducerId(producerId, pageNumber, COUNT_VISIBLE_PAGE);
