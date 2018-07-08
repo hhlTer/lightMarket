@@ -21,6 +21,9 @@
     <div class="w3-container w3-teal">
         <a href="/producer" class="w3-button">Producer</a>
         <a href="/product" class="w3-button">Product</a>
+        <a th:if="${user == null}" href="/login" class="w3-button w3-blue w3-right">Login</a>
+        <span th:if="${user != null}" th:text="'Joined: ' + ${user.getUsername()} + ' Role: ' + ${roles}" class="w3-text w3-right"></span>
+        <a th:if="${user != null}" href="/logout" class="w3-button w3-red w3-right">Logout</a>
     </div>
 </body>
 </html>

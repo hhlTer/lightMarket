@@ -1,5 +1,6 @@
 package lightmarket.mvc.controller.service.sequrity;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -39,7 +40,17 @@ public class SecurityService {
             return null;
         }
 
-        return (User)authentication.getPrincipal();
+        UsernamePasswordAuthenticationToken token = null;
+
+        try {
+            token = (UsernamePasswordAuthenticationToken) authentication;
+            if (token == null){
+                return null;
+            }
+            return (User) token.getPrincipal();
+        } catch (ClassCastException e) {
+            return null;
+        }
     }
 
     private String getRolesString(User user){
