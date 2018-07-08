@@ -1,5 +1,6 @@
 package lightmarket.mvc.controller.pagecontroller;
 
+import lightmarket.mvc.controller.service.sequrity.UserValidateService;
 import lightmarket.mvc.model.domain.User;
 import lightmarket.mvc.service.jpa.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserValidateService userValidateService;
+
     @GetMapping("/login")
     public ModelAndView login(){
         return new ModelAndView("login");
@@ -27,10 +31,18 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String register(
+    public ModelAndView register(
             @ModelAttribute User user
     ){
-        userService.createUser(user);
-        return "redirect:/login";
+        UserValidateService.ValidateForm result = userValidateService.validate(user);
+
+        if (result == UserValidateService.ValidateForm.ok){
+            userService.createUser(user);
+            return new ModelAndView("redirect:/login");
+        } else {
+            ModelAndView modelAndView = new ModelAndView("register");
+            modelAndView.addObject("error", result.getDescription());
+            return modelAndView;
+        }
     }
 }
