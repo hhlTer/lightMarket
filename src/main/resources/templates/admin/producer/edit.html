@@ -17,7 +17,7 @@
         <div class="w3-container w3-blue"><h3>Edit producer</h3></div>
         <div class="w3-panel w3-padding-16">
             <form th:action="@{'/admin/producer/edit?producerId=' + ${producer.getId()}}" method="post">
-                <div><label> Producer name: <input placeholder="${producer.getProducerName}" class="w3-input w3-border w3-margin-bottom" type="text" name="producerName"/> </label></div>
+                <div><label> Producer name: <input th:placeholder="${producer.getProducerName()}" class="w3-input w3-border w3-margin-bottom" type="text" name="producerName"/> </label></div>
                 <div>
                     <!--<a href="/admin/producer/edit" class="w3-button w3-green">Update producer</a>-->
                     <a href="/" class="w3-button w3-green">Cancel</a>

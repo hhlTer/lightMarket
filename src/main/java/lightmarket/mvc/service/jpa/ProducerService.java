@@ -38,9 +38,9 @@ public class ProducerService {
         return producerRepository.findAll();
     }
 
-    public boolean deleteProducerById(Producer producer){
-        if (producerRepository.existsById(producer.getId())){
-            producerRepository.delete(producer);
+    public boolean deleteProducerById(Long id){
+        if (producerRepository.existsById(id)){
+            producerRepository.delete(producerRepository.getOne(id));
             return true;
         } else {
             return false;
@@ -51,6 +51,10 @@ public class ProducerService {
         return producerRepository.existsById(producerId);
     }
 
+    /**
+     * Update
+     * @param producer
+     */
     public void update(Producer producer){
 
         String name = producer.getProducerName();
@@ -60,6 +64,7 @@ public class ProducerService {
         producerRepository.save(producer);
 //        producerRepository.update(name, id);
     }
+
 
     /**
      * Additional

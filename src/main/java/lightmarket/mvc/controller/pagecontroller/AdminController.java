@@ -74,4 +74,31 @@ public class AdminController {
         producerService.update(producer);
         return "redirect:/producer";
     }
+
+    /**
+     * Delete producer
+     */
+    @GetMapping("/admin/producer/delete")
+    public ModelAndView showProducerDeletePage(
+            @RequestParam String producerId
+    ){
+        Long longId = Long.parseLong(producerId);
+        Producer producer = producerService.getProducerById(longId);
+
+        ModelAndView modelAndView = new ModelAndView("/admin/producer/delete");
+        modelAndView.addObject("producer", producer);
+
+        return modelAndView;
+    }
+
+    @PostMapping("/admin/producer/delete")
+    public String delete(
+            @RequestParam String producerId
+    ){
+        Long id = Long.parseLong(producerId);
+
+        producerService.deleteProducerById(id);
+        return "redirect:/producer";
+    }
+
 }
