@@ -101,4 +101,22 @@ public class AdminController {
         return "redirect:/producer";
     }
 
+    /**
+     * Create producer
+     */
+
+    @GetMapping("/admin/producer/create")
+    public ModelAndView showProducerCreatePage(){
+        ModelAndView modelAndView = new ModelAndView("/admin/producer/create");
+        return modelAndView;
+    }
+
+    @PostMapping("/admin/producer/create")
+    public String create(
+            @ModelAttribute Producer producer
+    ){
+        producerService.createProducer(producer);
+        return "redirect:/producer";
+    }
+
 }
