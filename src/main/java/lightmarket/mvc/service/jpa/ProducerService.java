@@ -51,6 +51,16 @@ public class ProducerService {
         return producerRepository.existsById(producerId);
     }
 
+    public void update(Producer producer){
+
+        String name = producer.getProducerName();
+        long id = producer.getId();
+
+//        System.out.println("name = " + name + " Id = " + id);
+        producerRepository.save(producer);
+//        producerRepository.update(name, id);
+    }
+
     /**
      * Additional
      */

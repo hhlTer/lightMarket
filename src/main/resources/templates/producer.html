@@ -12,6 +12,7 @@
 <!--//Menu bar-->
 <div th:replace="fragments/menu.html :: top_menu"/>
 
+<a th:if="${roles == 'ADMIN'}" th:href="@{/admin/producer/create}" class="w3-button w3-blue w3-margin-bottom">Create producer</a>
     <div th:each="producer : ${producers}" class="w3-container">
         <div class="w3-container w3-grey w3-margin">
             <div class="w3-container">
@@ -22,6 +23,8 @@
                     </ul>
                 </div>
                 <a th:href="@{/product(producerId = ${producer.getId()})}" class="w3-button w3-blue w3-margin-bottom">Search</a>
+                <a th:if="${roles == 'ADMIN'}" th:href="@{/admin/producer/edit(producerId = ${producer.getId()})}" class="w3-button w3-blue w3-margin-bottom">Edit</a>
+                <a th:if="${roles == 'ADMIN'}" th:href="@{/admin/producer/delete(producerId = ${producer.getId()})}" class="w3-button w3-blue w3-margin-bottom">Delete</a>
             </div>
         </div>
     </div>

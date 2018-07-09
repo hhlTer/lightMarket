@@ -40,6 +40,10 @@ public class Producer {
         this.productSet = productSet;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Producer{" +
@@ -48,4 +52,5 @@ public class Producer {
                 ", productSet=" + productSet +
                 '}';
     }
+
 }

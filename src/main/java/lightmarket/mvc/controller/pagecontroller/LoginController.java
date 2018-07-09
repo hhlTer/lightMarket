@@ -12,37 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-public class LoginController {
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private UserValidateService userValidateService;
+public class LoginController extends MainController{
 
     @GetMapping("/login")
     public ModelAndView login(){
         return new ModelAndView("login");
     }
 
-    @GetMapping("/register")
-    public String showRegisterPage(){
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public ModelAndView register(
-            @ModelAttribute User user
-    ){
-        UserValidateService.ValidateForm result = userValidateService.validate(user);
-
-        if (result == UserValidateService.ValidateForm.ok){
-            userService.createUser(user);
-            return new ModelAndView("redirect:/login");
-        } else {
-            ModelAndView modelAndView = new ModelAndView("register");
-            modelAndView.addObject("error", result.getDescription());
-            return modelAndView;
-        }
-    }
 }
