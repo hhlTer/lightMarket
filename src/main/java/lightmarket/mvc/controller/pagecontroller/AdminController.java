@@ -2,8 +2,10 @@ package lightmarket.mvc.controller.pagecontroller;
 
 import lightmarket.mvc.controller.service.sequrity.UserValidateService;
 import lightmarket.mvc.model.domain.Producer;
+import lightmarket.mvc.model.domain.Product;
 import lightmarket.mvc.model.domain.User;
 import lightmarket.mvc.service.jpa.ProducerService;
+import lightmarket.mvc.service.jpa.ProductService;
 import lightmarket.mvc.service.jpa.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -14,11 +16,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+import java.util.Set;
+
 @Controller
 public class AdminController {
 
     @Autowired
     private ProducerService producerService;
+
+    @Autowired
+    private ProductService productService;
 
     @Autowired
     private UserService userService;
@@ -118,5 +126,94 @@ public class AdminController {
         producerService.createProducer(producer);
         return "redirect:/producer";
     }
+
+    /**
+     ***************** CRUD product
+     */
+
+    /**
+     * Update product
+     */
+    @GetMapping("/admin/product/edit")
+    public ModelAndView showProductEditPage(
+            @RequestParam String productId
+    ){
+        Long longId = Long.parseLong(productId);
+        Product product = productService.getProductById(longId);
+
+        ModelAndView modelAndView = new ModelAndView("/admin/product/edit");
+        modelAndView.addObject("product", product);
+
+        return modelAndView;
+    }
+
+    @PostMapping("/admin/product/edit")
+    public String update(
+            @RequestParam String productId,
+            @ModelAttribute Product product
+    ){
+        Long id = Long.parseLong(productId);
+        product.setId(id);
+
+        productService.createProduct(product);
+        return "redirect:/product";
+    }
+
+    /**
+     * Delete product
+     */
+    @GetMapping("/admin/product/delete")
+    public ModelAndView showProductDeletePage(
+            @RequestParam String productId
+    ){
+        Long longId = Long.parseLong(productId);
+        Product product = productService.getProductById(longId);
+
+        ModelAndView modelAndView = new ModelAndView("/admin/product/delete");
+        modelAndView.addObject("product", product);
+
+        return modelAndView;
+    }
+
+    @PostMapping("/admin/product/delete")
+    public String deleteProduct(
+            @RequestParam String productId
+    ){
+        Long id = Long.parseLong(productId);
+
+        productService.deleteProductById(id);
+        return "redirect:/product";
+    }
+
+    /**
+     * Create product
+     */
+
+    @GetMapping("/admin/product/create")
+    public ModelAndView showProductCreatePage(){
+        ModelAndView modelAndView = new ModelAndView("/admin/product/create");
+
+        List<Producer> producers = producerService.getAll();
+        modelAndView.addObject("producerList", producers);
+
+        return modelAndView;
+    }
+
+    @PostMapping("/admin/product/create")
+    public String create(
+            @RequestParam String producerId,
+            @ModelAttribute Product product
+    ){
+
+        producerId = producerId.split(" ")[0];
+        long id = Long.parseLong(producerId);
+        Producer producer = producerService.getProducerById(id);
+
+        product.setProducer(producer);
+
+        productService.createProduct(product);
+        return "redirect:/product";
+    }
+
 
 }

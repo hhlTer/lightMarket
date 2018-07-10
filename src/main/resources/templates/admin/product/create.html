@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Edit product</title>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body class="w3-light-grey">
+<div class="w3-container w3-red" th:if="${error}">
+    <h3 th:text="${error}">Error</h3>
+</div>
+
+<div class="w3-container">
+    <div class="w3-card w3-white" style="width: 600px; margin: auto; margin-top: 100px;">
+        <div class="w3-container w3-blue"><h3>Create product</h3></div>
+        <div class="w3-panel w3-padding-16">
+
+            <p>Choose a car, and click the "Submit" button to send input to the server.</p>
+
+            <form th:action="@{/admin/product/create}" method="post">
+                <div><label> Product: <input th:placeholder="'Product name'" class="w3-input w3-border w3-margin-bottom" type="text" name="productName"/> </label></div>
+                <div><label> Price: <input th:placeholder="'12.34'"
+                                           pattern="[0-9]*"
+                                           data-politespace data-grouplength="2"
+                                           data-delimiter="."
+                                           data-reverse
+                                           class="w3-input w3-border w3-margin-bottom" type="text" name="price"/></label></div>
+                    <select  name="producerId">
+                        <option th:each="producer : ${producerList}">
+                            <p th:text="${producer.getId() + ' ' +  producer.getProducerName()}"></p>
+                        </option>
+                        <!--<option th:each="producer : ${producerList}" value="${producer.getId()}" th:text="${producer.getProducername}">Volvo XC90</option>-->
+                    </select>
+                    <input class="w3-button" type="submit" value="Submit"/>
+                    <!--<a href="/products" class="w3-button w3-blue w3-right">Cancel</a>-->
+
+                    <!--<input class="w3-button w3-blue w3-right" type="submit" value="Create"/>-->
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

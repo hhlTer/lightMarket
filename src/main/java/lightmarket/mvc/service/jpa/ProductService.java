@@ -35,9 +35,9 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public boolean deleteProductById(Product product){
-        if (productRepository.existsById(product.getId())){
-            productRepository.delete(product);
+    public boolean deleteProductById(long productId){
+        if (productRepository.existsById(productId)){
+            productRepository.delete(productRepository.getOne(productId));
             return true;
         } else {
             return false;
@@ -73,4 +73,5 @@ public class ProductService {
     public long getCountOfProducts(long producerId) {
         return productRepository.getCountOfProductsByProducerId(producerId);
     }
+
 }

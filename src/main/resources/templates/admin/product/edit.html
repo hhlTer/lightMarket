@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Edit producer</title>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body class="w3-light-grey">
+<div class="w3-container w3-red" th:if="${error}">
+    <h3 th:text="${error}">Error</h3>
+</div>
+
+<div class="w3-container">
+    <div class="w3-card w3-white" style="width: 600px; margin: auto; margin-top: 100px;">
+        <div class="w3-container w3-blue"><h3>Edit producer</h3></div>
+        <div class="w3-panel w3-padding-16">
+            <form th:action="@{'/admin/producer/edit?producerId=' + ${producer.getId()}}" method="post">
+                <div><label> Producer name: <input th:placeholder="${producer.getProducerName()}" class="w3-input w3-border w3-margin-bottom" type="text" name="producerName"/> </label></div>
+                <div>
+                    <!--<a href="/admin/producer/edit" class="w3-button w3-green">Update producer</a>-->
+                    <a href="/" class="w3-button w3-green">Cancel</a>
+                    <input class="w3-button w3-blue w3-right" type="submit" value="Update"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

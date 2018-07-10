@@ -36,7 +36,7 @@ public class ProductController extends MainController{
 
         int pageNumberInt = Integer.parseInt(pageNumber);
         List<Product> productList = getProducts(producerId, pageNumberInt);
-        Map<Long, Integer> indices = getIndices(productList);
+        Map<Long, Integer> indices = getIndices(productList, pageNumberInt);
 
         modelAndView.addObject("productList", productList);
         modelAndView.addObject("producerId", producerId);
@@ -68,14 +68,14 @@ public class ProductController extends MainController{
         }
     }
 
-    private Map<Long,Integer> getIndices(List<Product> productList) {
+    private Map<Long,Integer> getIndices(List<Product> productList, int pageNumber) {
         HashMap<Long, Integer> result = new HashMap<>();
 
         int count = 0;
 
         for (Product p:
              productList) {
-            result.put(p.getId(), count++);
+            result.put(p.getId(), COUNT_VISIBLE_PAGE*pageNumber + ++count);
         }
         return result;
     }

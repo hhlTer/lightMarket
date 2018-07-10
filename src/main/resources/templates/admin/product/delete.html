@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Delete ' + ${producer.getProducerName()}">Delete</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+<body>
+<div class="w3-container">
+    <form th:action="@{'/admin/producer/delete?producerId=' + ${producer.getId()}}" method="post">
+    <h2>Delete producer</h2>
+    <p>If you submit, producer will be deleted irrevocably</p>
+
+    <div th:text = "${producer.getProducerName()}" class="w3-panel w3-card-4"><p>w3-card-4</p>
+    </div>
+        <a href="/" class="w3-button w3-green">Cancel</a>
+        <input class="w3-button w3-red" type="submit" value="Delete"/>
+    </form>
+</div>
+
+</body>
+</html>

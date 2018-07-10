@@ -21,7 +21,7 @@
                 Previous
             </a>
             <a
-               th:if="${pageNumber < pagesCount}"
+               th:if="${pageNumber <= pagesCount}"
                th:href="@{/product(producerId = ${producerId}, pageNumber = ${pageNumber + 1})}"
                class = "w3-button w3-right w3-blue w3-margin-top">
                 Next
@@ -33,17 +33,20 @@
                             <th>N</th>
                             <th>ID</th>
                             <th>Product</th>
+                            <th>Producer</th>
                             <th>Price</th>
                         </tr>
                         <tr th:each="product : ${productList}">
                             <td th:text="${indices.get(product.getId())}"></td>
                             <td th:text="${product.getId()}"></td>
                             <td th:text="${product.getProductName()}"></td>
+                            <td th:if="${product.getProducer() != null}" th:text="${product.getProducer().getProducerName()}"></td>
+                            <td th:if="${product.getProducer() == null}" th:text="'Unknow producer'"></td>
                             <td th:text="${product.getPrice()}"></td>
                         </tr>
                     </table>
                 </div>
-                <a th:href="@{/product/edit(producerId=${producerId}, product=${product})}" class="w3-button w3-right"></a>
+                <a th:href="@{/admin/product/create}" class="w3-button w3-margin">Create</a>
             </div>
         </div>
     <!--</div>-->
