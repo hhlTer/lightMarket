@@ -248,12 +248,22 @@ public class AdminController {
      */
 
     @GetMapping("admin/user/delete")
-    public ModelAndView deleteUser(
+    public ModelAndView showDeleteUserDialog(
             @RequestParam long userId
     ){
-        return null;
+        ModelAndView modelAndView = new ModelAndView("/admin/user/delete");
+        User user = userService.getById(userId);
+        modelAndView.addObject("user", user);
+        return modelAndView;
     }
 
+    @PostMapping("admin/user/delete")
+    public String deleteUser(
+            @RequestParam long userId
+    ){
+        userService.deleteUserById(userId);
+        return "redirect:/admin/user";
+    }
     /**
      * Activation invert
      */

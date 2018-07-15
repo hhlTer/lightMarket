@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="w3-container">
-    <form th:action="@{'/admin/user/user?userId=' + ${user.getId()}}" method="post">
+    <form th:action="@{'/admin/user/delete?userId=' + ${user.getId()}}" method="post">
         <h2>Delete user</h2>
         <p>If you submit, user will be deleted irrevocably</p>
 
