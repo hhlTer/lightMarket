@@ -1,8 +1,11 @@
 package lightmarket.mvc.model.domain;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Transactional
 @Entity(name = "product")
 public class Product {
 

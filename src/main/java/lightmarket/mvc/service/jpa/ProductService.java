@@ -5,6 +5,7 @@ import lightmarket.mvc.model.domain.Product;
 import lightmarket.mvc.model.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,12 +36,16 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    @Transactional
     public void deleteProductById(long productId){
 //        if (productRepository.existsById(productId)){
-            Product product = productRepository.getOne(productId);
-        System.out.println("Product: ");
-        System.out.println(product);
-            productRepository.delete(product);
+//            Product product = productRepository.getOne(productId);
+//        System.out.println("Product: ");
+//        System.out.println(product);
+//            productRepository.delete(product);
+        System.out.println("productId " + productId);
+            productRepository.deleteProductById(productId);
+            productRepository.flush();
 
 //            return true;
 //        } else {

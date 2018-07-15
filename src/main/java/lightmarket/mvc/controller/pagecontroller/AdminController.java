@@ -182,13 +182,10 @@ public class AdminController {
 
     @PostMapping("/admin/product/delete")
     public String deleteProduct(
-            @RequestParam String productId
+            @RequestParam long productId
     ){
-        System.out.println("productId from deleteProduct: " + productId);
-        Long id = Long.parseLong(productId);
-        System.out.println("long id from deleteProduct: " + id);
 
-        productService.deleteProductById(id);
+        productService.deleteProductById(productId);
         return "redirect:/product";
     }
 
@@ -262,6 +259,31 @@ public class AdminController {
             @RequestParam long userId
     ){
         userService.deleteUserById(userId);
+        return "redirect:/admin/user";
+    }
+
+    /**
+     * ****************** Edit user
+     * @param userId
+     * @return
+     */
+    @GetMapping("admin/user/edit")
+    public ModelAndView showEditDialog(
+            @RequestParam long userId
+    ){
+        ModelAndView modelAndView = new ModelAndView("admin/user/edit");
+        User user = userService.getById(userId);
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
+
+    @PostMapping("admin/user/edit")
+    public String editUser(
+            @RequestParam long userId,
+            @ModelAttribute User user
+    ){
+        user.setId(userId);
+        userService.save(user);
         return "redirect:/admin/user";
     }
     /**

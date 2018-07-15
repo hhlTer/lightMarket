@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Edit user ' + ${user.getEmail()}">Edit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+<div class="w3-container">
+    <div class="w3-card w3-white" style="width: 600px; margin: auto; margin-top: 100px;">
+        <div class="w3-container w3-blue"><h3>Edit user</h3></div>
+        <div class="w3-panel w3-padding-16">
+            <form th:action="@{'/admin/user/edit?userId=' + ${user.getId()}}" method="post">
+                <div><label> User email: <input th:placeholder="${user.getEmail()}" class="w3-input w3-border w3-margin-bottom" type="email" name="email"/> </label></div>
+                <div><label> User password: <input class="w3-input w3-border w3-margin-bottom" type="password" name="password"/> </label></div>
+                <div><label> User name: <input th:placeholder="${user.getFirstName()}" class="w3-input w3-border w3-margin-bottom" type="text" name="firstName"/> </label></div>
+                <div><label> User last name: <input th:placeholder="${user.getLastName()}" class="w3-input w3-border w3-margin-bottom" type="text" name="lastName"/> </label></div>
+
+                <div class="w3-container w3-margin">
+                    <input class="w3-radio" type="radio" name="active" value="1" checked>
+                        <label>Active</label>
+
+                    <input class="w3-radio" type="radio" name="active" value="0">
+                        <label>Blocked</label>
+                </div>
+
+                <div>
+                    <a href="/" class="w3-button w3-green">Cancel</a>
+                    <input class="w3-button w3-blue w3-right" type="submit" value="Update"/>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
