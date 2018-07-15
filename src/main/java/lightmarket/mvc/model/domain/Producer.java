@@ -44,13 +44,13 @@ public class Producer {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Producer{" +
-                "id=" + id +
-                ", producerName='" + producerName + '\'' +
-                ", productSet=" + productSet +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Producer{" +
+//                "id=" + id +
+//                ", producerName='" + producerName + '\'' +
+//                ", productSet=" + productSet +
+//                '}';
+//    }
 
 }

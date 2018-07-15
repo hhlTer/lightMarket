@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -33,6 +35,23 @@ public class UserService {
         user.getRoles().add(role);
         String encodePassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
+        userRepository.save(user);
+    }
+
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
+
+    public List<User> getOffset(int pageNamber, int count_users_on_page) {
+        int offset = count_users_on_page * pageNamber;
+        return userRepository.getOffset(count_users_on_page, offset);
+    }
+
+    public User getById(long userId) {
+        return userRepository.getOne(userId);
+    }
+
+    public void save(User user) {
         userRepository.save(user);
     }
 }

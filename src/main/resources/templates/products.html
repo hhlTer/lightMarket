@@ -43,10 +43,15 @@
                             <td th:if="${product.getProducer() != null}" th:text="${product.getProducer().getProducerName()}"></td>
                             <td th:if="${product.getProducer() == null}" th:text="'Unknow producer'"></td>
                             <td th:text="${product.getPrice()}"></td>
+                            <td>
+                                <a th:href="@{/admin/product/edit(productId=${product.getId()})}" class="w3-button w3-yellow">Edit</a>
+                                <a th:href="@{/admin/product/delete(productId=${product.getId()})}" class="w3-button w3-red">Delete</a>
+                            </td>
                         </tr>
+                        <!--<a th:href="@{/admin/product/edit(productId=${product.getId()})}" class="w3-button w3-margin">Edit</a>-->
                     </table>
                 </div>
-                <a th:href="@{/admin/product/create}" class="w3-button w3-margin">Create</a>
+                <a th:href="@{/admin/product/create}" class="w3-button w3-margin-bottom wr-green">Create</a>
             </div>
         </div>
     <!--</div>-->

@@ -22,8 +22,8 @@
         <a href="/producer" class="w3-button">Producer</a>
         <a href="/product" class="w3-button">Product</a>
         <a th:if="${user == null}" href="/login" class="w3-button w3-blue w3-right">Login</a>
-        <a th:if="${roles == 'ADMIN'}" href="/admin/register" class="w3-button w3-green">Register user</a>
-        <a th:if="${roles == 'ADMIN'}" href="/admin/user" class="w3-button w3-green">List users</a>
+        <!--<a th:if="${roles == 'ADMIN'}" href="/admin/register" class="w3-button w3-green">Register user</a>-->
+        <a th:if="${roles == 'ADMIN'}" href="/admin/user" class="w3-button w3-green">Гsers</a>
         <span th:if="${user != null}" th:text="'Joined: ' + ${user.getUsername()} + ' Role: ' + ${roles}" class="w3-text w3-right w3-margin-middle"></span>
         <a th:if="${user != null}" href="/logout" class="w3-button w3-aqua">Logout</a>
     </div>

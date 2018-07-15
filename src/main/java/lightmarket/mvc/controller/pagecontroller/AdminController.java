@@ -8,7 +8,6 @@ import lightmarket.mvc.service.jpa.ProducerService;
 import lightmarket.mvc.service.jpa.ProductService;
 import lightmarket.mvc.service.jpa.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,8 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 @Controller
 public class AdminController {
@@ -143,6 +143,7 @@ public class AdminController {
 
         ModelAndView modelAndView = new ModelAndView("/admin/product/edit");
         modelAndView.addObject("product", product);
+        modelAndView.addObject("producerList", producerService.getAll());
 
         return modelAndView;
     }
@@ -150,10 +151,14 @@ public class AdminController {
     @PostMapping("/admin/product/edit")
     public String update(
             @RequestParam String productId,
+            @RequestParam String producerId,
             @ModelAttribute Product product
     ){
+        long producerLongId = Long.parseLong(producerId.split(" ")[0]);
+
         Long id = Long.parseLong(productId);
         product.setId(id);
+        product.setProducer(producerService.getProducerById(producerLongId));
 
         productService.createProduct(product);
         return "redirect:/product";
@@ -179,7 +184,9 @@ public class AdminController {
     public String deleteProduct(
             @RequestParam String productId
     ){
+        System.out.println("productId from deleteProduct: " + productId);
         Long id = Long.parseLong(productId);
+        System.out.println("long id from deleteProduct: " + id);
 
         productService.deleteProductById(id);
         return "redirect:/product";
@@ -215,5 +222,71 @@ public class AdminController {
         return "redirect:/product";
     }
 
+    /**
+     * **************************  User  ******************************
+     */
 
+    private final int COUNT_USERS_ON_PAGE = 10;
+    @GetMapping("/admin/user")
+    public ModelAndView user(@RequestParam(required = false, defaultValue = "0") int pageNumber){
+        ModelAndView modelAndView = new ModelAndView("/admin/user/user");
+
+        List<User> userList = userService.getOffset(pageNumber, COUNT_USERS_ON_PAGE);
+        modelAndView.addObject("pageNumber", pageNumber);
+        modelAndView.addObject("userList", userList);
+
+        Map<Long, Integer> indices = initIndices(userList, pageNumber);
+        modelAndView.addObject("indices", indices);
+
+        modelAndView.addObject("pagesCount", getCountOfPage(userList.size()));
+
+        return modelAndView;
+    }
+
+    /**
+     * Delete
+     */
+
+    @GetMapping("admin/user/delete")
+    public ModelAndView deleteUser(
+            @RequestParam long userId
+    ){
+        return null;
+    }
+
+    /**
+     * Activation invert
+     */
+
+    @GetMapping("/admin/user/invertActivation")
+    public String invertActive(
+            @RequestParam long userId
+    ){
+        User user = userService.getById(userId);
+        int active = user.getActive() == 0 ? 1 : 0;
+        user.setActive(active);
+        userService.save(user);
+        return "redirect:/admin/user";
+    }
+
+    private Map<Long, Integer> initIndices(List<User> userList, int pageNumber){
+        Map<Long, Integer> result = new HashMap<>();
+
+        int num = pageNumber*COUNT_USERS_ON_PAGE + 1;
+        for (User u:
+             userList) {
+            result.put(u.getId(), num++);
+        }
+
+        return result;
+    }
+
+    private int getCountOfPage(long countOfNotes){
+        return countOfNotes/COUNT_USERS_ON_PAGE +
+                countOfNotes%COUNT_USERS_ON_PAGE > 0 ? 1 : 0;
+    }
+
+    /**
+     *
+     */
 }

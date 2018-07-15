@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+<body>
+<!--Menu bar-->
+<div th:replace="fragments/menu.html :: top_menu"/>
+
+<!--<div th:each="product : ${productList}" class="w3-container">-->
+<div class="w3-container w3-grey w3-margin">
+    <!--<a th:href="@{/product(producerId = ${producerId}, pageNumber = ${pageNumber + 1})}">wewr</a>-->
+    <a
+            th:if="${pageNumber > 0}"
+            th:href="@{/admin/user(pageNumber = ${pageNumber - 1})}"
+            class="w3-button w3-left w3-blue w3-margin-top">
+        Previous
+    </a>
+    <a
+            th:if="${pageNumber < pagesCount-1}"
+            th:href="@{/admin/user(pageNumber = ${pageNumber + 1})}"
+            class = "w3-button w3-right w3-blue w3-margin-top">
+        Next
+    </a>
+    <div class="w3-container">
+        <div class="w3-container w3-section w3-light-grey w3-margin">
+            <table class="w3-table w3-striped w3-bordered w3-border">
+                <tr>
+                    <th>N</th>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Active</th>
+                </tr>
+                <tr th:each="user : ${userList}">
+                    <td th:text="${indices.get(user.getId())}"></td>
+                    <td th:text="${user.getId()}"></td>
+                    <td th:text="${user.getEmail()}"></td>
+                    <td th:text="${user.getFirstName()}"></td>
+                    <td th:text="${user.getLastName()}"></td>
+                    <td>
+                        <a th:if="${user.getActive() == 1}" class="w3-button w3-green"
+                           th:href="@{/admin/user/invertActivation(userId=${user.getId()})}">Active</a>
+                        <a th:if="${user.getActive() == 0}" class="w3-button w3-black"
+                           th:href="@{/admin/user/invertActivation(userId=${user.getId()})}">Block</a>
+                        <a th:href="@{/admin/user/edit(userId=${user.getId()})}" class="w3-button w3-yellow">Edit</a>
+                        <a th:href="@{/admin/user/delete(userId=${user.getId()})}" class="w3-button w3-red">Delete</a>
+                    </td>
+                </tr>
+                <!--<a th:href="@{/admin/product/edit(productId=${product.getId()})}" class="w3-button w3-margin">Edit</a>-->
+            </table>
+        </div>
+        <a th:href="@{/admin/user/create}" class="w3-button w3-margin-bottom w3-blue">Create</a>
+    </div>
+</div>
+<!--</div>-->
+</body>
+</html>

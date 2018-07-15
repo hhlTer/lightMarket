@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Edit product</title>
+    <title>Create product</title>
 
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -16,8 +16,6 @@
     <div class="w3-card w3-white" style="width: 600px; margin: auto; margin-top: 100px;">
         <div class="w3-container w3-blue"><h3>Create product</h3></div>
         <div class="w3-panel w3-padding-16">
-
-            <p>Choose a car, and click the "Submit" button to send input to the server.</p>
 
             <form th:action="@{/admin/product/create}" method="post">
                 <div><label> Product: <input th:placeholder="'Product name'" class="w3-input w3-border w3-margin-bottom" type="text" name="productName"/> </label></div>

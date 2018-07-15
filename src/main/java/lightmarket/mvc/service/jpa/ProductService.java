@@ -35,13 +35,17 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public boolean deleteProductById(long productId){
-        if (productRepository.existsById(productId)){
-            productRepository.delete(productRepository.getOne(productId));
-            return true;
-        } else {
-            return false;
-        }
+    public void deleteProductById(long productId){
+//        if (productRepository.existsById(productId)){
+            Product product = productRepository.getOne(productId);
+        System.out.println("Product: ");
+        System.out.println(product);
+            productRepository.delete(product);
+
+//            return true;
+//        } else {
+//            return false;
+//        }
     }
 
     /**

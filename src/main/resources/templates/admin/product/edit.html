@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Edit producer</title>
+    <title>Create product</title>
 
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -14,15 +14,27 @@
 
 <div class="w3-container">
     <div class="w3-card w3-white" style="width: 600px; margin: auto; margin-top: 100px;">
-        <div class="w3-container w3-blue"><h3>Edit producer</h3></div>
+        <div class="w3-container w3-blue"><h3>Create product</h3></div>
         <div class="w3-panel w3-padding-16">
-            <form th:action="@{'/admin/producer/edit?producerId=' + ${producer.getId()}}" method="post">
-                <div><label> Producer name: <input th:placeholder="${producer.getProducerName()}" class="w3-input w3-border w3-margin-bottom" type="text" name="producerName"/> </label></div>
-                <div>
-                    <!--<a href="/admin/producer/edit" class="w3-button w3-green">Update producer</a>-->
-                    <a href="/" class="w3-button w3-green">Cancel</a>
-                    <input class="w3-button w3-blue w3-right" type="submit" value="Update"/>
-                </div>
+
+            <!--<p>Choose a car, and click the "Submit" button to send input to the server.</p>-->
+
+            <form th:action="@{/admin/product/edit(productId=${product.getId()})}" method="post">
+                <div><label> Product: <input th:placeholder="${product.getProductName()}" class="w3-input w3-border w3-margin-bottom" type="text" name="productName"/> </label></div>
+                <div><label> Price: <input th:placeholder="${product.getPrice()}"
+                                           pattern="[0-9]*"
+                                           data-politespace data-grouplength="2"
+                                           data-delimiter="."
+                                           data-reverse
+                                           class="w3-input w3-border w3-margin-bottom" type="text" name="price"/></label></div>
+                <select  name="producerId">
+                    <option th:each="producer : ${producerList}">
+                        <p th:text="${producer.getId() + ' ' +  producer.getProducerName()}" th:default="${product.getProducer().getId()}"></p>
+                    </option>
+                    <!--<option th:each="producer : ${producerList}" value="${producer.getId()}" th:text="${producer.getProducername}">Volvo XC90</option>-->
+                </select>
+                <input class="w3-button" type="submit" value="Submit"/>
+
             </form>
         </div>
     </div>

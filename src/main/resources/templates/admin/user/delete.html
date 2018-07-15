@@ -2,19 +2,19 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title th:text="'Delete ' + ${product.getProductName()}">Delete</title>
+    <title th:text="'Delete ' + ${user.getEmail()}">Delete</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 </head>
 <body>
 <div class="w3-container">
-    <form th:action="@{'/admin/product/delete?productId=' + ${product.getId()}}" method="post">
-    <h2>Delete product</h2>
-    <p>If you submit, product will be deleted irrevocably</p>
+    <form th:action="@{'/admin/user/user?userId=' + ${user.getId()}}" method="post">
+        <h2>Delete user</h2>
+        <p>If you submit, user will be deleted irrevocably</p>
 
-    <div th:text = "${product.getProductName()}" class="w3-panel w3-card-4"><p>w3-card-4</p>
-    </div>
+        <div th:text = "${user.getFirstName()}" class="w3-panel w3-card-4"><p>w3-card-4</p>
+        </div>
         <a href="/" class="w3-button w3-green">Cancel</a>
         <input class="w3-button w3-red" type="submit" value="Delete"/>
     </form>
