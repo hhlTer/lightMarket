@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class AdminController {
+public class AdminController extends MainController{
 
     @Autowired
     private ProducerService producerService;
@@ -115,7 +115,7 @@ public class AdminController {
 
     @GetMapping("/admin/producer/create")
     public ModelAndView showProducerCreatePage(){
-        ModelAndView modelAndView = new ModelAndView("/admin/producer/create");
+        ModelAndView modelAndView = securityModelGenerate("/admin/producer/create");
         return modelAndView;
     }
 
